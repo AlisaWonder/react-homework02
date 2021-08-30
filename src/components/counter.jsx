@@ -1,16 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
 
-const Counter = () => {
-  const [count, setCount] = useState(0);
+const Counter = (props) => {
+  console.log(props);
+
   const tags = [];
 
-  const formCount = () => {
-    return count === 0 ? "Ноль" : count < 0 ? "В минус не уходим" : count;
+  const formValue = () => {
+    return props.value === 0
+      ? "Ноль"
+      : props.value < 0
+      ? "В минус не уходим"
+      : props.value;
   };
 
-  const getBageclasses = () => {
+  const getBadgeClasses = () => {
     let classes = "badge m-2 bg-";
-    classes += count === 0 ? "danger" : "primary";
+    classes += props.value === 0 ? "danger" : "primary";
     return classes;
   };
 
@@ -19,30 +24,38 @@ const Counter = () => {
     return tags.map((tag) => <li key={tag}>{tag}</li>);
   };
 
-  const handleIncrement = (productId) => {
-    console.log(productId);
-    setCount(count + 1);
-  };
+  //   const handleIncrement = (productId) => {
+  //     console.log(productId);
+  //     setValue(value + 1);
+  //   };
 
-  const handleDecrement = (productId) => {
-    console.log(productId);
-    setCount(count - 1);
-  };
+  //   const handleDecrement = (productId) => {
+  //     console.log(productId);
+  //     setValue(value - 1);
+  //   };
 
   return (
     <>
-      <span className={getBageclasses()}>{formCount()}</span>
+      <h4>{props.name}</h4>
+      {/* {props.children} */}
+      <span className={getBadgeClasses()}>{formValue()}</span>
       <button
-        onClick={() => handleIncrement({ id: 1 })}
+        onClick={() => props.onIncrement(props.id)}
         className="btn btn-secondary btn-sm"
       >
         Increment
       </button>
       <button
-        onClick={() => handleDecrement({ id: 2 })}
+        onClick={() => props.onDecrement(props.id)}
         className="btn btn-secondary btn-sm"
       >
         Decrement
+      </button>
+      <button
+        onClick={() => props.onDelete(props.id)}
+        className="btn btn-danger btn-sm m-2"
+      >
+        Delete
       </button>
     </>
   );
