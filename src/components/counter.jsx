@@ -1,21 +1,15 @@
 import React from "react";
 
-const Counter = (props) => {
-  console.log(props);
-
+const Counter = ({ id, value, name, onIncrement, onDecrement, onDelete }) => {
   const tags = [];
 
   const formValue = () => {
-    return props.value === 0
-      ? "Ноль"
-      : props.value < 0
-      ? "В минус не уходим"
-      : props.value;
+    return value === 0 ? "Ноль" : value < 0 ? "В минус не уходим" : value;
   };
 
   const getBadgeClasses = () => {
     let classes = "badge m-2 bg-";
-    classes += props.value === 0 ? "danger" : "primary";
+    classes += value === 0 ? "danger" : "primary";
     return classes;
   };
 
@@ -24,35 +18,25 @@ const Counter = (props) => {
     return tags.map((tag) => <li key={tag}>{tag}</li>);
   };
 
-  //   const handleIncrement = (productId) => {
-  //     console.log(productId);
-  //     setValue(value + 1);
-  //   };
-
-  //   const handleDecrement = (productId) => {
-  //     console.log(productId);
-  //     setValue(value - 1);
-  //   };
-
   return (
     <>
-      <h4>{props.name}</h4>
-      {/* {props.children} */}
+      <h4>{name}</h4>
+      {/* {children} */}
       <span className={getBadgeClasses()}>{formValue()}</span>
       <button
-        onClick={() => props.onIncrement(props.id)}
+        onClick={() => onIncrement(id)}
         className="btn btn-secondary btn-sm"
       >
         Increment
       </button>
       <button
-        onClick={() => props.onDecrement(props.id)}
+        onClick={() => onDecrement(id)}
         className="btn btn-secondary btn-sm"
       >
         Decrement
       </button>
       <button
-        onClick={() => props.onDelete(props.id)}
+        onClick={() => onDelete(id)}
         className="btn btn-danger btn-sm m-2"
       >
         Delete
